@@ -1,10 +1,5 @@
 name: Check
-on:
-    push:
-      branches: [ ci_cd_test ]
-    workflow_dispatch:
-    pull_request:
-      branches: [ ci_cd_test ]
+on: push
 
 jobs:
     build:
