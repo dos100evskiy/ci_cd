@@ -1,0 +1,7 @@
+Package: devops
+Version: 1.0
+Architecture: amd64
+Maintainer: dos
+Description: i hope it's gonna work
+Depends: make, g++
+
