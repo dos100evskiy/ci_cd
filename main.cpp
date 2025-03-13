@@ -8,12 +8,12 @@ long long fib(int);
 int main (int argc, char* argv[]) {
     if(argc != 2) {
         cerr << "ERROR USE ONLY ONE ARG" << endl;
-        return 1;
+        return 0;
     }
 
     if(stoi(argv[1]) > 92 || stoi(argv[1]) < 0) {
         cerr << "NOT USE ARG MORE THEN 92 OR LESS THEN 0" << endl;
-        return 1;
+        return 0;
     }
 
     cout << fib(stoi(argv[1])) << endl;
