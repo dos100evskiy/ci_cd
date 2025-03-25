@@ -23,6 +23,9 @@ jobs:
           - name: Grant execute permission for scripts
             run: chmod +x scripts/*.sh
 
+          - name: Start build
+            run: ./scripts/build.sh
+            
           - name: Run test
             run: ./scripts/test.sh
 
