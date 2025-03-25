@@ -17,6 +17,7 @@ jobs:
 
       - name: Build .deb 
         run: ./scripts/package.sh
+            ls -lah
 
       - name: Debug info
         run: ls -la
