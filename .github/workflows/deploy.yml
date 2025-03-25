@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: deb-package
-          path: ci_cd.deb
+          path: ../ci_cd.deb
 
   deploy:
     runs-on: ubuntu-latest
@@ -44,7 +44,7 @@ jobs:
           path: .
 
       - name: Build Docker 
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ci_cd:1.0 .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ci_cd:1.0 deb-package/
 
       - name: Run Docker container test
         run: docker run ${{ secrets.DOCKERHUB_USERNAME }}/ci_cd:1.0
