@@ -1,0 +1,50 @@
+name: Deploy
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: make
+
+      - name: Build .deb 
+        run: ./scripts/package.sh
+
+      - name: Debug info
+        run: ls -la
+
+      - name: Upload -deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deb-package
+          path: ci_cd.deb
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+
+      - name: Download .deb artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: deb-package
+          path: .
+
+      - name: Build Docker 
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/ci_cd:1.0 .
+
+      - name: Run Docker container test
+        run: docker run ${{ secrets.DOCKERHUB_USERNAME }}/ci_cd:1.0
+
+      - name: Login to DockerHub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Push Docker to DockerHub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/ci_cd:1.0
