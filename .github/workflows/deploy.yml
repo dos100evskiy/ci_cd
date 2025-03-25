@@ -19,7 +19,7 @@ jobs:
         run: ./scripts/package.sh
 
       - name: Debug info
-        run: ls -la
+        run: ls -lah ..
 
       - name: Upload -deb artifact
         uses: actions/upload-artifact@v4
