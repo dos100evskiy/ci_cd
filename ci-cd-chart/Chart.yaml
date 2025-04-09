@@ -1,0 +1,4 @@
+apiVersion: v2
+name: ci-cd-chart
+description: A Helm chart for CI/CD Fibonacci app
+version: 0.1.0
