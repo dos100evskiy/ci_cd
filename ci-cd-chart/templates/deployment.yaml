@@ -1,20 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: fib-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: fib-app
   template:
     metadata:
       labels:
-        app: my-app
+        app: fib-app
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
     spec:
       containers:
-      - name: my-app
+      - name: fib
         image: fibimg
         imagePullPolicy: Never
+        command: ["/app/fib"]
+        args: ["10"]
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+          name: metrics
